@@ -1,0 +1,25 @@
+/* 
+    Document   : like-fb
+    Created on : Mar 3, 2013, 3:19:30 PM
+    Author     : Rana
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+fieldset{
+       border: 1px solid saddlebrown;
+       padding:5px;
+    }
+.like-fb-left{
+    width:60%;
+    float:left;
+}
+.like-fb-right{
+    width:30%;
+    float:left;
+    margin-left: 10px;
+}
