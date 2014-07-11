@@ -24,32 +24,34 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$fb_opt_name = "like_fb_show";
-$gp_opt_name = "like_gplus_show";
-
+$fb_opt_name       = "like_fb_show";
+$gp_opt_name       = "like_gplus_show";
+$popup_fb_page     = "popup_fb_page";
+$popup_delay       = "popup_delay";
+$fb_popup_box      = "fb_popup_box";
 
 
 /*************Plugin Functions****************/
 function get_the_like_button($url){
- $iframe = "<iframe src=\"//www.facebook.com/plugins/like.php?href={$url}&amp;send=false&amp;layout=box_count&amp;width=0&amp;show_faces=false&amp;font=lucida+grande&amp;colorscheme=light&amp;action=like&amp;height=0&amp;appId=276364829074878\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; width:50px; height:70px;\" allowTransparency=\"true\"></iframe>";
-return $iframe;	
+    $iframe = "<iframe src=\"//www.facebook.com/plugins/like.php?href={$url}&amp;send=false&amp;layout=box_count&amp;width=0&amp;show_faces=false&amp;font=lucida+grande&amp;colorscheme=light&amp;action=like&amp;height=0&amp;appId=276364829074878\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; width:50px; height:70px;\" allowTransparency=\"true\"></iframe>";
+    return $iframe;	
 }
 
 function get_the_plus_button($size="tall"){
     $plus_code = "
-<div class=\"g-plusone\" data-size=\"{$size}\"></div>
-<script type=\"text/javascript\">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>";
+                    <div class=\"g-plusone\" data-size=\"{$size}\"></div>
+                    <script type=\"text/javascript\">
+                      (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/plusone.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                      })();
+                    </script>";
     return $plus_code;
 }
 
 function like_fb($content)  {
-       global $fb_opt_name,$gp_opt_name;
+        global $fb_opt_name,$gp_opt_name;
 	//retrieve post id
 	$post_id =  get_the_ID();
 	//retrieve post url
@@ -79,6 +81,35 @@ function like_fb($content)  {
         
     return $content;
 }
+
+function popup_box(){
+        global $popup_fb_page,$popup_delay,$fb_popup_box;
+        
+        if(get_option($fb_popup_box)){
+            $popup_fb_url  = get_option($popup_fb_page);
+            $delay         = get_option($popup_delay);
+
+            include(dirname(__FILE__).'/front_end_popup.php');
+            $footer = $fb_footer;
+            $footer = str_replace('__URL__', $popup_fb_url, $footer);
+            $footer = str_replace('__DELAY__', $delay*1000, $footer);
+            echo $footer;
+        }
+        else {
+              echo FALSE;
+        }
+}
+
+
+
+function fancybox_scripts() {
+    wp_enqueue_script( 'fancybox_script', plugins_url( 'fancybox/jquery.fancybox.js' , __FILE__ ), array('jquery'),'2.1.5',TRUE);
+    wp_enqueue_style( 'fancybox_style', plugins_url( 'fancybox/jquery.fancybox.css' , __FILE__ ));
+    
+}
+
+
+
 /***************Plugin Functions****************/
 
 /****** Admin Functions *********/
@@ -94,8 +125,22 @@ function like_fb_plugin_options() {
 	include __DIR__."/options.php";
 }
 
+//inline settings menu on admin section
+function inline_settings_link( $links ) {
+    $settings_link = '<a href="'.admin_url( 'options-general.php?page=like-fb-option' ).'">Settings</a>';
+    array_push( $links, $settings_link );
+    return $links;
+}
+
+$plugin = plugin_basename( __FILE__ );
+
+
+
 /************End Admin Functions**************/
 
 add_filter('the_content', 'like_fb'); 
+add_action('wp_enqueue_scripts', 'fancybox_scripts');
+add_action('wp_footer', 'popup_box');
 
 add_action( 'admin_menu', 'like_fb_menu' );
+add_filter( "plugin_action_links_$plugin", 'inline_settings_link' );

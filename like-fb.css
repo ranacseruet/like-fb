@@ -13,7 +13,7 @@ root {
 fieldset{
        border: 1px solid saddlebrown;
        padding:5px;
-    }
+ }
 .like-fb-left{
     width:60%;
     float:left;
@@ -22,4 +22,8 @@ fieldset{
     width:30%;
     float:left;
     margin-left: 10px;
+}
+
+.error{
+    color: red;
 }
