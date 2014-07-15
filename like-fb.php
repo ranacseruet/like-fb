@@ -104,6 +104,7 @@ function popup_box(){
 
 function fancybox_scripts() {
     wp_enqueue_script( 'fancybox_script', plugins_url( 'fancybox/jquery.fancybox.js' , __FILE__ ), array('jquery'),'2.1.5',TRUE);
+    wp_enqueue_script( 'page_script', plugins_url( 'popup.js' , __FILE__ ), array(),NULL,TRUE);
     wp_enqueue_style( 'fancybox_style', plugins_url( 'fancybox/jquery.fancybox.css' , __FILE__ ));
     
 }

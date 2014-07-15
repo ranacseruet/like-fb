@@ -56,4 +56,4 @@ else{
     <?php include(__DIR__."/support.php"); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo site_url() ?>/wp-content/plugins/like-fb/like-fb.css"  />
     <script type="text/javascript" asnc src="<?php echo site_url() ?>/wp-content/plugins/like-fb/jquery.validate.min.js" ></script>
-    <script type="text/javascript" asnc src="<?php echo site_url() ?>/wp-content/plugins/like-fb/form_submit.js" ></script>
+    <script type="text/javascript" asnc src="<?php echo site_url() ?>/wp-content/plugins/like-fb/admin.js" ></script>
