@@ -86,6 +86,7 @@ function popup_box(){
         global $popup_fb_page,$popup_delay,$fb_popup_box;
         
         if(get_option($fb_popup_box)){
+            
             $popup_fb_url  = get_option($popup_fb_page);
             $delay         = get_option($popup_delay);
 
@@ -95,16 +96,14 @@ function popup_box(){
             $footer = str_replace('__DELAY__', $delay*1000, $footer);
             echo $footer;
         }
-        else {
-              echo FALSE;
-        }
+        
 }
 
 
 
 function fancybox_scripts() {
     wp_enqueue_script( 'fancybox_script', plugins_url( 'fancybox/jquery.fancybox.js' , __FILE__ ), array('jquery'),'2.1.5',TRUE);
-    wp_enqueue_script( 'page_script', plugins_url( 'popup.js' , __FILE__ ), array(),NULL,TRUE);
+    wp_enqueue_script( 'page_script', plugins_url( 'js/popup.js' , __FILE__ ), array(),NULL,TRUE);
     wp_enqueue_style( 'fancybox_style', plugins_url( 'fancybox/jquery.fancybox.css' , __FILE__ ));
     
 }
@@ -140,7 +139,9 @@ $plugin = plugin_basename( __FILE__ );
 /************End Admin Functions**************/
 
 add_filter('the_content', 'like_fb'); 
-add_action('wp_enqueue_scripts', 'fancybox_scripts');
+if(get_option($fb_popup_box)){
+    add_action('wp_enqueue_scripts', 'fancybox_scripts');
+}
 add_action('wp_footer', 'popup_box');
 
 add_action( 'admin_menu', 'like_fb_menu' );
