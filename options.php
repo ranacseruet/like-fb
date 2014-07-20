@@ -1,18 +1,28 @@
 <?php
 global $fb_opt_name,$gp_opt_name,$popup_fb_page,$popup_delay,$fb_popup_box;
+
 if(isset($_POST["submit"])){ 
-    $fb_show                = $_POST[$fb_opt_name];
-    update_option($fb_opt_name, $fb_show);
-    $gplus_show             = $_POST[$gp_opt_name];
-    update_option($gp_opt_name, $gplus_show);
-    $popup_fb_page_show     =  $_POST[$popup_fb_page];
-    update_option($popup_fb_page, $popup_fb_page_show);
-    $popup_delay_show       =  $_POST[$popup_delay];
-    update_option($popup_delay, $popup_delay_show);
-    $fb_popup_box_show      =  $_POST[$fb_popup_box];
-    update_option($fb_popup_box, $fb_popup_box_show);
     
-    echo '<div id="message" class="updated fade"><p>Options Updates</p></div>';
+    $fb_show                =  $_POST[$fb_opt_name];
+    $gplus_show             =  $_POST[$gp_opt_name];
+    $popup_fb_page_show     =  $_POST[$popup_fb_page];
+    $fb_popup_box_show      =  $_POST[$fb_popup_box];
+    $popup_delay_show       =  $_POST[$popup_delay];
+    
+    if($fb_popup_box_show){
+        if (is_numeric ($popup_delay_show)){
+            
+            updateField($fb_show,$gplus_show,$popup_fb_page_show,$popup_delay_show,$fb_popup_box_show);
+        }
+        else{
+            echo '<div id="message" class="updated fade error"><p>Popup Delay must be numeric </p></div>';
+        }
+    }
+    else{
+        updateField($fb_show,$gplus_show,$popup_fb_page_show,$popup_delay_show,$fb_popup_box_show);
+    }
+    
+    
 }
 else{
     $fb_show             = get_option($fb_opt_name);
@@ -21,6 +31,20 @@ else{
     $popup_delay_show    = get_option($popup_delay);
     $fb_popup_box_show   = get_option($fb_popup_box);
 }
+
+function updateField($fb_show,$gplus_show,$popup_fb_page_show,$popup_delay_show,$fb_popup_box_show){
+    
+    global $fb_opt_name,$gp_opt_name,$popup_fb_page,$popup_delay,$fb_popup_box;
+    
+    update_option($fb_opt_name, $fb_show);
+    update_option($gp_opt_name, $gplus_show);
+    update_option($popup_fb_page, $popup_fb_page_show);
+    update_option($popup_delay, $popup_delay_show);
+    update_option($fb_popup_box, $fb_popup_box_show);
+
+    echo '<div id="message" class="updated fade"><p>Options Updates</p></div>';
+}
+
 ?>
 <div class="wrap">
     <?php screen_icon(); ?>
@@ -55,3 +79,4 @@ else{
 
     <?php include(__DIR__."/support.php"); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo site_url() ?>/wp-content/plugins/like-fb/css/like-fb.css"  />
+    
