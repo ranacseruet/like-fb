@@ -29,7 +29,7 @@ $gp_opt_name       = "like_gplus_show";
 $popup_fb_page     = "popup_fb_page";
 $popup_delay       = "popup_delay";
 $fb_popup_box      = "fb_popup_box";
-
+session_start();
 
 /*************Plugin Functions****************/
 function get_the_like_button($url){
@@ -85,16 +85,20 @@ function like_fb($content)  {
 function popup_box(){
         global $popup_fb_page,$popup_delay,$fb_popup_box;
         
-        if(get_option($fb_popup_box)){
+        if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
             
-            $popup_fb_url  = get_option($popup_fb_page);
-            $delay         = get_option($popup_delay);
+            
+                $_SESSION['fb_popup_box']="shown";
+                 
+                $popup_fb_url  = get_option($popup_fb_page);
+                $delay         = get_option($popup_delay);
 
-            include(dirname(__FILE__).'/front_end_popup.php');
-            $footer = $fb_footer;
-            $footer = str_replace('__URL__', $popup_fb_url, $footer);
-            $footer = str_replace('__DELAY__', $delay*1000, $footer);
-            echo $footer;
+                include(dirname(__FILE__).'/front_end_popup.php');
+                $footer = $fb_footer;
+                $footer = str_replace('__URL__', $popup_fb_url, $footer);
+                $footer = str_replace('__DELAY__', $delay*1000, $footer);
+                echo $footer;
+            
         }
         
 }
@@ -139,7 +143,7 @@ $plugin = plugin_basename( __FILE__ );
 /************End Admin Functions**************/
 
 add_filter('the_content', 'like_fb'); 
-if(get_option($fb_popup_box)){
+if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
     add_action('wp_enqueue_scripts', 'fancybox_scripts');
 }
 add_action('wp_footer', 'popup_box');
