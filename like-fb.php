@@ -3,8 +3,8 @@
 Plugin Name: Like FB
 Plugin URI: http://wordpress.org/extend/plugins/like-fb/
 Description: Very Simple light weight plugin to integrate facebook like button on every post
-Version: 2.0
-Author: Md. Ali Ahsan Rana	
+Version: 2.1
+Author: Md Ali Ahsan Rana	
 Author URI: http://codesamplez.com
 License: GPL2
 */

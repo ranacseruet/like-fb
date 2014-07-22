@@ -31,6 +31,11 @@ Me On Twitter: <a href="http://twitter.com/ranacseruet" target="_blank">ranacser
 
 == Changelog ==
 
+= 2.1 =
+* Facebook Like box pop up widget. 
+* Configurability to enable/disable and set delay in seconds(how much later the box should appear after page load).
+* Code clean up, minor changes.
+
 = 2.0 =
 * New Extended facebook bubble box one-click button.
 * Show only before post content.(to show below content, I recommend for 'jetpack social share' plugin).
