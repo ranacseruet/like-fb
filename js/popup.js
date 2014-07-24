@@ -1,9 +1,8 @@
 jQuery(document).ready(function(jQuery){ 
-    var delay = jQuery("#popup_delay").html();
-    var fancy = setTimeout(function () {
-        
-        jQuery.fancybox.open([{
-            content: jQuery(".popup")
-        }])
-    }, delay);
+    var popup_delay = jQuery("#popup_delay").html();
+    jQuery('#facebookpopup-fanback').delay(popup_delay).fadeIn('medium');
+    jQuery('#facebookpopup-fanclose, #facebookpopup-fan-exit').click(function(){
+        jQuery('#facebookpopup-fanback').stop().fadeOut('medium');
+
+    });
 });

@@ -85,7 +85,7 @@ function like_fb($content)  {
 function popup_box(){
         global $popup_fb_page,$popup_delay,$fb_popup_box;
         
-        if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
+        if(get_option($fb_popup_box)){// && !isset($_SESSION['fb_popup_box'])){
             
             
                 $_SESSION['fb_popup_box']="shown";
@@ -106,9 +106,8 @@ function popup_box(){
 
 
 function fancybox_scripts() {
-    wp_enqueue_script( 'fancybox_script', plugins_url( 'fancybox/jquery.fancybox.js' , __FILE__ ), array('jquery'),'2.1.5',TRUE);
     wp_enqueue_script( 'page_script', plugins_url( 'js/popup.js' , __FILE__ ), array(),NULL,TRUE);
-    wp_enqueue_style( 'fancybox_style', plugins_url( 'fancybox/jquery.fancybox.css' , __FILE__ ));
+    wp_enqueue_style( 'popup_style', plugins_url( 'css/popup.css' , __FILE__ ));
     
 }
 
@@ -143,7 +142,7 @@ $plugin = plugin_basename( __FILE__ );
 /************End Admin Functions**************/
 
 add_filter('the_content', 'like_fb'); 
-if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
+if(get_option($fb_popup_box)){// && !isset($_SESSION['fb_popup_box'])){
     add_action('wp_enqueue_scripts', 'fancybox_scripts');
 }
 add_action('wp_footer', 'popup_box');
