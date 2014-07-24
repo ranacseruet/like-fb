@@ -85,7 +85,7 @@ function like_fb($content)  {
 function popup_box(){
         global $popup_fb_page,$popup_delay,$fb_popup_box;
         
-        if(get_option($fb_popup_box)){// && !isset($_SESSION['fb_popup_box'])){
+        if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
             
             
                 $_SESSION['fb_popup_box']="shown";
@@ -142,7 +142,7 @@ $plugin = plugin_basename( __FILE__ );
 /************End Admin Functions**************/
 
 add_filter('the_content', 'like_fb'); 
-if(get_option($fb_popup_box)){// && !isset($_SESSION['fb_popup_box'])){
+if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
     add_action('wp_enqueue_scripts', 'fancybox_scripts');
 }
 add_action('wp_footer', 'popup_box');
