@@ -3,8 +3,8 @@
 Plugin Name: Like FB
 Plugin URI: http://wordpress.org/extend/plugins/like-fb/
 Description: Very Simple light weight plugin to integrate facebook like button on every post
-Version: 2.1
-Author: Md Ali Ahsan Rana	
+Version: 2.0
+Author: Md. Ali Ahsan Rana	
 Author URI: http://codesamplez.com
 License: GPL2
 */
@@ -85,11 +85,9 @@ function like_fb($content)  {
 function popup_box(){
         global $popup_fb_page,$popup_delay,$fb_popup_box;
         
-        if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
-            
-            
-                $_SESSION['fb_popup_box']="shown";
-                 
+        $cokkie = $_COOKIE['show_fb_popup_box'];
+        if(get_option($fb_popup_box) && !isset($_COOKIE['show_fb_popup_box'])){
+                             
                 $popup_fb_url  = get_option($popup_fb_page);
                 $delay         = get_option($popup_delay);
 
@@ -142,7 +140,7 @@ $plugin = plugin_basename( __FILE__ );
 /************End Admin Functions**************/
 
 add_filter('the_content', 'like_fb'); 
-if(get_option($fb_popup_box) && !isset($_SESSION['fb_popup_box'])){
+if(get_option($fb_popup_box) && !isset($_COOKIE['show_fb_popup_box'])){
     add_action('wp_enqueue_scripts', 'fancybox_scripts');
 }
 add_action('wp_footer', 'popup_box');
