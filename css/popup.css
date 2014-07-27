@@ -27,6 +27,7 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
     margin: -220px 0 0 -375px;
+    padding: 10px;
 }
 #facebookpopup-fanclose {
     float:right;
@@ -41,7 +42,7 @@
 }
 .facebookpopup-remove-border {
     height:1px;
-    width:366px;
+    width:280px;
     margin:0 auto;
     margin-top:16px;
     position:relative;

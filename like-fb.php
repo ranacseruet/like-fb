@@ -91,8 +91,8 @@ function popup_box(){
                 $popup_fb_url  = get_option($popup_fb_page);
                 $delay         = get_option($popup_delay);
 
-                include(dirname(__FILE__).'/front_end_popup.php');
-                $footer = $fb_footer;
+                
+                $footer = file_get_contents(dirname(__FILE__).'/front_end_popup.php');
                 $footer = str_replace('__URL__', $popup_fb_url, $footer);
                 $footer = str_replace('__DELAY__', $delay*1000, $footer);
                 echo $footer;
