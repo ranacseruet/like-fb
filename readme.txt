@@ -1,25 +1,26 @@
 === Plugin Name ===
 Contributors: ranacseruet
-Donate link: http://codesamplez.com/
-Tags: facebook, plugin, like button, google+ button
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=aliahsanrana%40gmail%2ecom&item_name=Like-FB%20Support&item_number=1&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
+Tags: facebook, plugin, like button, google+ button, popup like box
 Requires at least: 2.0.2
-Tested up to: 3.5.1
+Tested up to: 3.9.1
 Stable tag: trunk
 
-Very Simple light weight plugin to integrate facebook like and google+ button on every post
+Very Simple light weight social plugin to integrate single click facebook like and google+ button on every post and configurable popup box.
 
 == Description ==
 
 This plugin will allow you to add a facebook like button and google+ button to each of your post, just before the post contents.
-They are styled float on left part. Thus shown closely with the contents, which it the conversion rate a lot higher. Moreove, as they
+They are styled float on left part. Thus shown closely with the contents, which it the conversion rate a lot higher. Moreover, as they
 being one click action button, users tends to use them more then the share buttons. This have a simple administration which facilitates
-to disable/enable the buttons as per your own will. I am looking forward if you want some more customization feature on it. Just let me
-know.Thanks.
+to disable/enable the buttons as per your own will. 
 
+This also includes a facebook popup box feature, which will show up to user after a certain delay(configurable via settings). This is
+great over other plugins as this doesn't show up immediately that annoys visitor, rather than after a delay so that they can get the time
+to read your post and thus have a higher conversion rate of getting more facebook fans. I am already experimented it on my own
+<a href="http://codesamplez.com" target="_blank">Programming Tutorials</a> blog which gained roughly 250% increased rate in facebook fans.
 
-My Website: <a href="http://codesamplez.com" target="_blank">codesamplez.com</a>
-
-Me On Twitter: <a href="http://twitter.com/ranacseruet" target="_blank">ranacseruet</a>
+I am looking forward if you want some more customization feature on it. Just let me know.Thanks.
 
 == Installation ==
 
@@ -35,6 +36,12 @@ Me On Twitter: <a href="http://twitter.com/ranacseruet" target="_blank">ranacser
 3. Output of the Facebook Popup Like box on page load.
 
 == Changelog ==
+
+= 2.1.3 =
+* Popup box enhancements.
+
+= 2.1.2 =
+* Minor modifications.
 
 = 2.1 =
 * Facebook Like box pop up widget. 
