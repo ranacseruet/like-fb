@@ -28,6 +28,11 @@ Me On Twitter: <a href="http://twitter.com/ranacseruet" target="_blank">ranacser
 3. Go To your wordpress administration area and use "Settings"->"Like FB" menu option to customize the settings.
 4. Good Luck :)
 
+== Screenshots ==
+
+1. Like Fb and google+ button in a post.
+2. Administration area and use settings option to customize the popup delay, facebook page and other option.
+3. Output of the Facebook Popup Like box on page load.
 
 == Changelog ==
 

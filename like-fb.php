@@ -85,7 +85,7 @@ function like_fb($content)  {
 function popup_box(){
         global $popup_fb_page,$popup_delay,$fb_popup_box;
         
-        $cokkie = $_COOKIE['show_fb_popup_box'];
+        
         if(get_option($fb_popup_box) && !isset($_COOKIE['show_fb_popup_box'])){
                              
                 $popup_fb_url  = get_option($popup_fb_page);
