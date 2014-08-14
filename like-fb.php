@@ -29,6 +29,7 @@ $gp_opt_name       = "like_gplus_show";
 $popup_fb_page     = "popup_fb_page";
 $popup_delay       = "popup_delay";
 $fb_popup_box      = "fb_popup_box";
+$page_not_like_box    = "page_not_like_box";
 session_start();
 
 /*************Plugin Functions****************/
@@ -51,33 +52,37 @@ function get_the_plus_button($size="tall"){
 }
 
 function like_fb($content)  {
-        global $fb_opt_name,$gp_opt_name;
+        global $fb_opt_name,$gp_opt_name,$page_not_like_box;
 	//retrieve post id
 	$post_id =  get_the_ID();
 	//retrieve post url
-	$url = get_permalink($post_id);
+	$current_url = get_permalink($post_id);
 	//encode the url
-	$url = urlencode($url);
+	$url = urlencode($current_url);
 	//add like button at the beginning of the content
-	
-        $plugin_content = "<div style='float:left;margin-right:7px;'>";
+	$posted_page_permalinks      = htmlspecialchars(get_option($page_not_like_box));
+        $posted_page_permalinks      = explode("\r\n", $posted_page_permalinks);
         
-        $nl = FALSE;
-        if(get_option($fb_opt_name)){
-            $plugin_content .= get_the_like_button($url);
-            $nl = TRUE;
-        }
+        if( !in_array($current_url, $posted_page_permalinks)){
+            $plugin_content = "<div style='float:left;margin-right:7px;'>";
 
-        if(get_option($gp_opt_name)){
-            if($nl){
-                $plugin_content .= "<br />";
+            $nl = FALSE;
+            if(get_option($fb_opt_name)){
+                $plugin_content .= get_the_like_button($url);
+                $nl = TRUE;
             }
-            $plugin_content .= get_the_plus_button();
+
+            if(get_option($gp_opt_name)){
+                if($nl){
+                    $plugin_content .= "<br />";
+                }
+                $plugin_content .= get_the_plus_button();
+            }
+            $plugin_content .= "</div>";
+
+
+            $content = $plugin_content.$content;
         }
-        $plugin_content .= "</div>";
-        
-        
-        $content = $plugin_content.$content;
         
     return $content;
 }
