@@ -9,9 +9,9 @@
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
         <br />
-        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fcodesamplez&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=276364829074878" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwordpress.org%2Fplugins%2Flike-fb%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=1451944361708609" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>
         <!-- Place this tag where you want the +1 button to render. -->
-        <div class="g-plusone" data-size="small" data-href="https://plus.google.com/117030554351135445108"></div>
+        <div class="g-plusone" data-size="small" data-href="http://wordpress.org/plugins/like-fb/"></div>
 
         <!-- Place this tag after the last +1 button tag. -->
         <script type="text/javascript">

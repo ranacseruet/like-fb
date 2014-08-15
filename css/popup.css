@@ -62,11 +62,16 @@
 
 @media screen and (max-width: 767px) {
     #facebookpopup-fanbox {
-        width:92% !important;
+        width:300px;
+        height:320px;
         left:4% !important;
-        margin:-220px 0 0 0px;
+        top:8%;
+        margin:0px auto;
+        padding: 1%;
     }
-    
+    iframe{
+        width: 290px;
+    }
     .fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
         width: 90% !important;
     }

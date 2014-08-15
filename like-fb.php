@@ -29,6 +29,7 @@ $gp_opt_name       = "like_gplus_show";
 $popup_fb_page     = "popup_fb_page";
 $popup_delay       = "popup_delay";
 $fb_popup_box      = "fb_popup_box";
+$page_not_like_box    = "page_not_like_box";
 session_start();
 
 /*************Plugin Functions****************/
@@ -51,40 +52,45 @@ function get_the_plus_button($size="tall"){
 }
 
 function like_fb($content)  {
-        global $fb_opt_name,$gp_opt_name;
+        global $fb_opt_name,$gp_opt_name,$page_not_like_box;
 	//retrieve post id
 	$post_id =  get_the_ID();
 	//retrieve post url
-	$url = get_permalink($post_id);
+	$current_url = get_permalink($post_id);
 	//encode the url
-	$url = urlencode($url);
-	//add like button at the beginning of the content
+	$url = urlencode($current_url);
 	
-        $plugin_content = "<div style='float:left;margin-right:7px;'>";
+	$posted_page_permalinks      = htmlspecialchars(get_option($page_not_like_box));
+        $posted_page_permalinks      = explode("\r\n", $posted_page_permalinks);
         
-        $nl = FALSE;
-        if(get_option($fb_opt_name)){
-            $plugin_content .= get_the_like_button($url);
-            $nl = TRUE;
-        }
+        $post_values = get_post_custom( $post_id );
+        $post_check = isset( $post_values['meta_box_fb_like_check'] ) ? esc_attr( $post_values['meta_box_fb_like_check'][0])  : 'on';
+    
+        if( !(in_array($current_url, $posted_page_permalinks)) && $post_check !='off'){
+            $plugin_content = "<div style='float:left;margin-right:7px;' class='like-fb'>";
 
-        if(get_option($gp_opt_name)){
-            if($nl){
-                $plugin_content .= "<br />";
+            $nl = FALSE;
+            if(get_option($fb_opt_name)){
+                $plugin_content .= get_the_like_button($url);
+                $nl = TRUE;
             }
-            $plugin_content .= get_the_plus_button();
+
+            if(get_option($gp_opt_name)){
+                if($nl){
+                    $plugin_content .= "<br />";
+                }
+                $plugin_content .= get_the_plus_button();
+            }
+            $plugin_content .= "</div>";
+
+            $content = $plugin_content.$content;
         }
-        $plugin_content .= "</div>";
-        
-        
-        $content = $plugin_content.$content;
         
     return $content;
 }
 
 function popup_box(){
-        global $popup_fb_page,$popup_delay,$fb_popup_box;
-        
+        global $popup_fb_page,$popup_delay,$fb_popup_box;  
         
         if(get_option($fb_popup_box) && !isset($_COOKIE['show_fb_popup_box'])){
                              
@@ -136,9 +142,51 @@ function inline_settings_link( $links ) {
 $plugin = plugin_basename( __FILE__ );
 
 
+//add meta box on each post/page on admin section
+function fb_like_meta_box_add()
+{
+    add_meta_box( 'my-meta-box-id', 'Like-FB', 'meta_box_fb_like', 'post', 'normal', 'high' );
+    add_meta_box( 'my-meta-box-id', 'Like-FB', 'meta_box_fb_like', 'page', 'normal', 'high' );
+
+}
+
+function meta_box_fb_like()
+{
+    global $post;
+    $values = get_post_custom( $post->ID );
+    $check = isset( $values['meta_box_fb_like_check'] ) ? esc_attr( $values['meta_box_fb_like_check'][0])  : 'on';
+    
+    // We'll use this nonce field later on when saving.
+    wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' );
+    ?>
+    <p>
+        <input type="checkbox" id="meta_box_fb_like_check" name="meta_box_fb_like_check" <?php checked( $check, 'on' ); ?> />
+        <label for="meta_box_fb_like_check">Show Facebook & Goggle+ like button </label>
+        <a href="options-general.php?page=like-fb-option" style="float:right">Advance Settings</a>
+    </p>
+    <?php
+}
+
+//save fb_like meta box data 
+function fb_like_meta_box_save( $post_id )
+{
+    // Bail if we're doing an auto save
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+     
+    // if our nonce isn't there, or we can't verify it, bail
+    if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'my_meta_box_nonce' ) ) return;
+     
+    // if our current user can't edit this post, bail
+    if( !current_user_can( 'edit_post' ) ) return;
+     
+    $chk = isset( $_POST['meta_box_fb_like_check'] )? 'on' : 'off';
+    update_post_meta( $post_id, 'meta_box_fb_like_check', $chk );
+}
 
 /************End Admin Functions**************/
 
+add_action( 'add_meta_boxes', 'fb_like_meta_box_add' );
+add_action( 'save_post', 'fb_like_meta_box_save' );
 add_filter('the_content', 'like_fb'); 
 if(get_option($fb_popup_box) && !isset($_COOKIE['show_fb_popup_box'])){
     add_action('wp_enqueue_scripts', 'fancybox_scripts');
