@@ -43,6 +43,10 @@
 
 <br /><br />
 
+<p>
+    Note: In case you are having same effect over and over(could be an caching issue), try to use a different image
+</p>
+
 Controller Function Code:
 
 <pre class="prettyprint linenums languague-php">
