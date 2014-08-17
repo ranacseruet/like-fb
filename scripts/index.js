@@ -4,22 +4,19 @@
  */
 
 window.onload = function(){
-    steal(script_base_url+"libraries/jquery/jquery-2.0.2.min.js",loadJqueryPlugins);
+    steal(base_url+"bower_components/jquery/dist/jquery.min.js",loadJqueryPlugins);
     google.load("maps","3.8", {"other_params":"sensor=true",callback:loadGoogleMapPlugin});
 }
 
 function loadJqueryPlugins(){
-    steal(//script_base_url+"libraries/javascriptmvc/jquerymx-3.2.custom.min_1.js",
-          //script_base_url+"libraries/jquery/jquery-ui-1.8.11.custom.min.js",
+    steal(base_url+"bower_components/jquery-ui/ui/jquery-ui.custom.js",
           script_base_url+"libraries/jquery/plugins/jquery.form.js",
-          //script_base_url+"libraries/bootstrap.js",
-          script_base_url+"prettify.js",
-          script_base_url+"libraries/jquery/plugins/jquery.validate.js",jqueryPluginsLoaded);
-    $.getScript(script_base_url+"libraries/bootstrap.js");      
+          base_url+"bower_components/bootstrap/dist/js/bootstrap.min.js",
+          base_url+"bower_components/jquery.validation/dist/jquery.validate.js",jqueryPluginsLoaded);
 }
 
 function loadGoogleMapPlugin(){
-    steal(script_base_url+"libraries/gmap/gmaps.js",googleMapPluginsLoaded);
+    steal(base_url+"bower_components/gmaps/gmaps.js",googleMapPluginsLoaded);
 }
 
 function jqueryPluginsLoaded(){
@@ -27,7 +24,6 @@ function jqueryPluginsLoaded(){
     $("form").each(function(){
         $(this).validate(validateOptions);
     });
-    prettyPrint();
     if(window.jInit){
         jInit();
     }
@@ -42,15 +38,17 @@ function googleMapPluginsLoaded(){
 /****** Custom validation error ********/
 function myErrorPlacement(error, element) {
             offset = element.position();
-            error.insertBefore(element);
+            error.insertAfter(element);
             error.addClass('message');  // add a class to the wrapper
             error.css('position', 'absolute');
             error.css('left',offset.left + element.outerWidth());
-            error.css('top', offset.top);
+            error.css('width','100%');
+            error.css('top', offset.top + 60);
         }
 var validateOptions = {
-        errorElement: "span",
+        /*errorElement: "span",
         wrapper: "span",
-        errorPlacement:myErrorPlacement
+        errorPlacement:myErrorPlacement*/
+        
     };        
 /******* XXX ********/    
