@@ -1,3 +1,14 @@
+<div class="span12" style="margin: 0px auto">
+<!-- sidebar-responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7238030838481733"
+     data-ad-slot="7582746338"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
 <div class="container span12" >
     <div class="row">
         <div class="span6">Powered By <a href="http://codesamplez.com" class="btn btn-link">CodeSamplez.com</a></div>
