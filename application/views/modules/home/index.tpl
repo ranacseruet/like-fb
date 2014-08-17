@@ -81,6 +81,16 @@
                 </td>
                 <td><a href="{$base_url}javascript/audio" class="btn btn-info" target="_blank">View Demo</a></td>
             </tr>
+            <tr>
+                <td>
+                    <strong><a href="http://codesamplez.com/programming/php-html5-video-streaming-tutorial"  class="btn btn-link">Tutorial On PHP HTML5 Video Streaming</a></strong>
+                    <p>
+                        In this demo, you will see the samll PHP Video streaming class of the tutorial into action by streaming a mp4 sample music video file. Check it out and try
+                        of your own!
+                    </p>
+                </td>
+                <td><a href="{$base_url}html5/video" class="btn btn-info" target="_blank">View Demo</a></td>
+            </tr>
         </tbody>
     </table>
 </div>

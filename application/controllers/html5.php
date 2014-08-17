@@ -36,6 +36,16 @@ class Html5 extends MY_Controller
     {
         return $this->view();
     }
+    
+    public function video($name = "")
+    {
+        if(empty($name)) {
+            return $this->view();
+        }
+        include APPPATH."libraries/VideoStream.php";
+        $stream = new VideoStream("./video/".$name.".mp4");
+        $stream->start();exit;
+    }
 }
 /* End of file home.php */
 /* Location: ./application/controllers/home.php */
