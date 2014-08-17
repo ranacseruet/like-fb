@@ -17,8 +17,10 @@ to disable/enable the buttons as per your own will.
 
 This also includes a facebook popup box feature, which will show up to user after a certain delay(configurable via settings). This is
 great over other plugins as this doesn't show up immediately that annoys visitor, rather than after a delay so that they can get the time
-to read your post and thus have a higher conversion rate of getting more facebook fans. I am already experimented it on my own
-<a href="http://codesamplez.com" target="_blank">Programming Tutorials</a> blog which gained roughly 250% increased rate in facebook fans.
+to read your post and thus have a higher conversion rate of getting more facebook fans. Also, instead of showing on every page load, this
+popup box is shown once every 7 days, managed by browser cookies.
+
+I have this plugin implemented on my <a href="http://codesamplez.com" target="_blank">Programming Tutorials</a> blog, which you can checkout as demo.
 
 I am looking forward if you want some more customization feature on it. Just let me know.Thanks.
 
@@ -34,8 +36,20 @@ I am looking forward if you want some more customization feature on it. Just let
 1. Like Fb and google+ button in a post.
 2. Administration area and use settings option to customize the popup delay, facebook page and other option.
 3. Output of the Facebook Popup Like box on page load.
+4. Disable/Enable the plugin on post edit page.
+5. Add urls in exclude list of pages/posts.
 
 == Changelog ==
+
+= 2.2 =
+* New Feature: Disable Like-FB on specific post/pages.(use checkbox option on each post/page edit page or add url on advance settings page)
+* Minor changes/enhancements.
+
+= 2.1.5 =
+* Mobile View Enhancement.
+
+= 2.1.4 =
+* Version Update.
 
 = 2.1.3 =
 * Popup box enhancements.
