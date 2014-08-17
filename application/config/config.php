@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://demo.codesamplez.com/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
