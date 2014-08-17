@@ -2,8 +2,13 @@
 /application/logs/
 /application/models/proxies/
 /codeigniterplus/
-/nbproject/private/
+/nbproject/
 /audio/
 /files/
 /images/
 /video/
+/nbproject/
+/vendor/
+/bower_components/
+/deploy.php
+/makefile
