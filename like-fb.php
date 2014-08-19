@@ -24,12 +24,14 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$fb_opt_name       = "like_fb_show";
-$gp_opt_name       = "like_gplus_show";
-$popup_fb_page     = "popup_fb_page";
-$popup_delay       = "popup_delay";
-$fb_popup_box      = "fb_popup_box";
+$fb_opt_name          = "like_fb_show";
+$gp_opt_name          = "like_gplus_show";
+$popup_fb_page        = "popup_fb_page";
+$popup_delay          = "popup_delay";
+$fb_popup_box         = "fb_popup_box";
 $page_not_like_box    = "page_not_like_box";
+$meta_box_fb_like     = "meta_box_fb_like_check";
+
 session_start();
 
 /*************Plugin Functions****************/
@@ -52,7 +54,7 @@ function get_the_plus_button($size="tall"){
 }
 
 function like_fb($content)  {
-        global $fb_opt_name,$gp_opt_name,$page_not_like_box;
+        global $fb_opt_name,$gp_opt_name,$page_not_like_box,$meta_box_fb_like;
 	//retrieve post id
 	$post_id =  get_the_ID();
 	//retrieve post url
@@ -64,7 +66,7 @@ function like_fb($content)  {
         $posted_page_permalinks      = explode("\r\n", $posted_page_permalinks);
         
         $post_values = get_post_custom( $post_id );
-        $post_check = isset( $post_values['meta_box_fb_like_check'] ) ? esc_attr( $post_values['meta_box_fb_like_check'][0])  : 'on';
+        $post_check = isset( $post_values[$meta_box_fb_like] ) ? esc_attr( $post_values[$meta_box_fb_like][0])  : 'on';
     
         if( !(in_array($current_url, $posted_page_permalinks)) && $post_check !='off'){
             $plugin_content = "<div style='float:left;margin-right:7px;' class='like-fb'>";
@@ -152,17 +154,16 @@ function fb_like_meta_box_add()
 
 function meta_box_fb_like()
 {
-    global $post;
+    global $post,$meta_box_fb_like;
     $values = get_post_custom( $post->ID );
-    $check = isset( $values['meta_box_fb_like_check'] ) ? esc_attr( $values['meta_box_fb_like_check'][0])  : 'on';
+    $check  = isset( $values[$meta_box_fb_like] ) ? esc_attr( $values[$meta_box_fb_like][0])  : 'on';
     
     // We'll use this nonce field later on when saving.
     wp_nonce_field( 'my_meta_box_nonce', 'meta_box_nonce' );
     ?>
     <p>
-        <input type="checkbox" id="meta_box_fb_like_check" name="meta_box_fb_like_check" <?php checked( $check, 'on' ); ?> />
-        <label for="meta_box_fb_like_check">Show Facebook & Goggle+ like button </label>
-        <a href="options-general.php?page=like-fb-option" style="float:right">Advance Settings</a>
+        <label for="<?php echo $meta_box_fb_like;?>">Show Facebook & Goggle+ like button </label>
+        <input type="checkbox" id="<?php echo $meta_box_fb_like;?>" name="<?php echo $meta_box_fb_like;?>"  <?php checked( $check, 'on' ); ?> />
     </p>
     <?php
 }
@@ -170,6 +171,7 @@ function meta_box_fb_like()
 //save fb_like meta box data 
 function fb_like_meta_box_save( $post_id )
 {
+    global $meta_box_fb_like;
     // Bail if we're doing an auto save
     if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
      
@@ -179,8 +181,35 @@ function fb_like_meta_box_save( $post_id )
     // if our current user can't edit this post, bail
     if( !current_user_can( 'edit_post' ) ) return;
      
-    $chk = isset( $_POST['meta_box_fb_like_check'] )? 'on' : 'off';
-    update_post_meta( $post_id, 'meta_box_fb_like_check', $chk );
+    $chk = isset( $_POST[$meta_box_fb_like] )? 'on' : 'off';
+    update_post_meta( $post_id, $meta_box_fb_like, $chk );
+}
+
+// remove data from database when plugin deactivated
+function plugin_deactivate(){
+    global $fb_opt_name, $gp_opt_name, $popup_fb_page, $popup_delay, $fb_popup_box,$page_not_like_box,$meta_box_fb_like;
+   
+    $option_name =array($fb_opt_name,$gp_opt_name,$popup_fb_page,$popup_delay,$fb_popup_box,$page_not_like_box);
+    
+    foreach ($option_name as $value) {
+        delete_option( $value);
+    }
+    
+    delete_post_meta_by_key( $meta_box_fb_like );
+}
+
+//add some initial field when plugin activated
+function load_plugin() {
+    global $fb_opt_name, $gp_opt_name, $popup_fb_page, $popup_delay, $fb_popup_box;
+   
+    if(is_admin()&& get_option('Activated_Plugin')=='Plugin-Slug') {
+        delete_option('Activated_Plugin');
+        add_option($fb_opt_name,'on');
+        add_option($gp_opt_name,'on');
+        add_option($popup_fb_page,'codesamplez');
+        add_option($popup_delay,'2');
+        add_option($fb_popup_box,'on');
+    }
 }
 
 /************End Admin Functions**************/
@@ -188,6 +217,7 @@ function fb_like_meta_box_save( $post_id )
 add_action( 'add_meta_boxes', 'fb_like_meta_box_add' );
 add_action( 'save_post', 'fb_like_meta_box_save' );
 add_filter('the_content', 'like_fb'); 
+
 if(get_option($fb_popup_box) && !isset($_COOKIE['show_fb_popup_box'])){
     add_action('wp_enqueue_scripts', 'fancybox_scripts');
 }
@@ -195,3 +225,12 @@ add_action('wp_footer', 'popup_box');
 
 add_action( 'admin_menu', 'like_fb_menu' );
 add_filter( "plugin_action_links_$plugin", 'inline_settings_link' );
+
+register_deactivation_hook( __FILE__, 'plugin_deactivate' );
+
+register_activation_hook( __FILE__, function() {
+  add_option('Activated_Plugin','Plugin-Slug');
+  
+});
+
+add_action('admin_init','load_plugin');
