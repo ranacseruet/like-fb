@@ -35,7 +35,6 @@ class MY_Controller extends CI_Controller
         $this->data["status"] = (object)NULL;
         //$this->load->library("unit_test");
         //$this->output->enable_profiler();
-        
         $this->load->library('app/formvalidator');
         $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
         
@@ -89,9 +88,13 @@ class MY_Controller extends CI_Controller
         //retrieve method name for using on the next step
         $method = $this->getFunctionName();        
         $this->prefix = $this->prefix.$method."_";
-        
         //loading the seo_properties
-        $this->page->title .= $this->config->item($this->prefix."title");
+        if(isset($this->page->title)) {
+            $this->page->title .= $this->config->item($this->prefix."title");
+        }
+        else {
+            $this->page->title = $this->config->item($this->prefix."title");
+        }
         $this->page->title .= empty($this->page->title)?"":" | ";
         $this->page->title .= get_domain();
                 
