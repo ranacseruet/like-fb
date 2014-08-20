@@ -40,8 +40,8 @@
         </tbody>
     </table>       
 <br />
-<div class="clear pagination">
-    <ul>
+<div class="clear">
+    <ul class="pagination">
         {$pagination_helper->create_links()}
     </ul>    
 </div>
