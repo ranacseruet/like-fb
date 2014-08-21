@@ -6,8 +6,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"> 
+            <a class="navbar-brand" href="{$base_url|cat:"images/logo.png"}"> 
+                {if file_exists("./images/logo.png")}    
                 <img width="160" height="28" alt="Demo.CodeSamplez.com" src="{$base_url}images/logo.png">
+                {else}
+                    <strong>Demo.CodeSamplez.com</strong>
+                {/if}
             </a>
         </div>
         <div class="collapse navbar-collapse">
