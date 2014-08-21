@@ -13,8 +13,10 @@
 {assign var="script_file" value="scripts/"|cat:$content|cat:".js"}
 
 {if file_exists($script_file)}
-    <script type="text/javascript" language="javascript" src="{$base_url}{$script_file}" ></script>
+<script type="text/javascript" language="javascript" src="{$base_url}{$script_file}" ></script>
 {/if}
 
+{if $smarty.const.ENVIRONMENT != "development"}
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 {include $common_dir|cat:"analytics.tpl"}
+{/if}
