@@ -7,7 +7,7 @@
     {include $common_dir|cat:"inc_styles.tpl"}
   </head>
   <body>  
-    <div class="navbar navbar navbar-default  navbar-fixed-top">          
+    <div class="navbar navbar-default  navbar-fixed-top">          
       {include $common_dir|cat:"header.tpl"}
     </div> 
     <div class="container content">
