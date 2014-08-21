@@ -1,3 +1,4 @@
+{if $smarty.const.ENVIRONMENT != "development"}
 <div class="span12" style="margin: 0px auto">
 <!-- sidebar-responsive -->
 <ins class="adsbygoogle"
@@ -8,6 +9,7 @@
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
+{/if}
 </div>
 <div class="container span12" >
     <div class="row">
