@@ -118,7 +118,6 @@ function fancybox_scripts() {
 }
 
 
-
 /***************Plugin Functions****************/
 
 /****** Admin Functions *********/
