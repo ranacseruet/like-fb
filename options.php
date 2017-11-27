@@ -73,7 +73,7 @@ function updateField($fb_show,$gplus_show,$popup_fb_page_show,$popup_delay_show,
                 <input type="checkbox" name="<?php echo $fb_popup_box; ?>" <?php echo $fb_popup_box_show?"checked='checked'":""; ?> /> &nbsp; <span> Show Facebook  Popup Box</span>
                 <br /><br />
                 <label for="<?php echo $popup_fb_page;?>">Facebook Page</label>
-                http://www.facebook.com/<input type="text" name="<?php echo $popup_fb_page;?>" value="<?php echo $popup_fb_page_show?$popup_fb_page_show:"codesamplez"; ?>" />
+                https://www.facebook.com/<input type="text" name="<?php echo $popup_fb_page;?>" value="<?php echo $popup_fb_page_show?$popup_fb_page_show:"codesamplez"; ?>" />
                 <br /><br />
                 <div>
                     <label for="<?php echo $popup_delay;?>">Popup Delay</label>

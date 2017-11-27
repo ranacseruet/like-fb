@@ -1,24 +1,18 @@
-jQuery(document).ready(function(jQuery){ 
-    
-    var popup_delay = jQuery("#popup_delay").html();
+jQuery(document).ready(function($){    
+    var popup_delay = $("#popup_delay").html();
 	var get_cookie = getCookie("show_fb_popup_box");
-	
 	if (get_cookie == ""){
-		console.log("enter");
-		jQuery('#facebookpopup-fanback').delay(popup_delay).fadeIn('medium',
+		$('#facebookpopup-fanback').delay(popup_delay).fadeIn('medium',
 		function() { 
-			setCookie("show_fb_popup_box", 'shown', 7); 
-		});
-
-		jQuery('#facebookpopup-fanclose, #facebookpopup-fan-exit').click(function(){
-			jQuery('#facebookpopup-fanback').stop().fadeOut('medium');
-
-		});
-		jQuery('.already-liked-btn').click(function(){
-			setCookie("show_fb_popup_box", 'shown', 365); 
-			jQuery('#facebookpopup-fanback').stop().fadeOut('medium');
+			setCookie("show_fb_popup_box", 'shown', 30); 
 		});
 	}
+
+	$('#facebookpopup-fanclose, #facebookpopup-fan-exit').on('click',function(){
+		$('#facebookpopup-fanback').fadeOut('medium');
+
+	});
+
 });
 
 function setCookie(cname, cvalue, exdays) {
